@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Портфолио веб-разработчика. Создание сайтов под ключ: лендинги, многостраничные и корпоративные сайты."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Веб-разработчик — сайты под ключ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <a class="header__logo" href="#hero" aria-label="На главную">
+          <span class="header__logo-accent">&lt;</span>dev<span
+            class="header__logo-accent"
+            >/&gt;</span
+          >
+        </a>
+
+        <button
+          class="header__burger"
+          type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="main-navigation"
+        >
+          <span class="header__burger-line"></span>
+          <span class="header__burger-line"></span>
+          <span class="header__burger-line"></span>
+        </button>
+
+        <nav class="nav" id="main-navigation" aria-label="Основная навигация">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a class="nav__link" href="#services">Услуги</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#portfolio">Портфолио</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#about">Обо мне</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#contacts">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero__container">
+          <div class="hero__content">
+            <p class="hero__eyebrow">
+              <span class="hero__eyebrow-dot"></span>
+              Веб-разработка под ключ
+            </p>
+
+            <h1 class="hero__title">
+              Разработка сайтов под ключ:
+              <span class="text-accent">от идеи до готового продукта</span>
+            </h1>
+
+            <p class="hero__description">
+              Создаю быстрые, адаптивные и удобные сайты, которые помогают
+              бизнесу привлекать клиентов и решать реальные задачи.
+            </p>
+
+            <div class="hero__actions">
+              <a class="button button--primary" href="#contacts">
+                Обсудить проект
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="button button--secondary" href="#portfolio">
+                Смотреть работы
+              </a>
+            </div>
+
+            <div class="hero__stats">
+              <div class="hero__stat">
+                <strong class="hero__stat-value">3+</strong>
+                <span class="hero__stat-label">года опыта</span>
+              </div>
+
+              <div class="hero__stat">
+                <strong class="hero__stat-value">30+</strong>
+                <span class="hero__stat-label">проектов</span>
+              </div>
+
+              <div class="hero__stat">
+                <strong class="hero__stat-value">100%</strong>
+                <span class="hero__stat-label">адаптивность</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__orb hero__orb--one"></div>
+            <div class="hero__orb hero__orb--two"></div>
+
+            <div class="hero__code">
+              <div class="hero__code-header">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="hero__code-body">
+                <p>
+                  <span class="code-purple">const</span>
+                  <span class="code-blue">website</span> = {
+                </p>
+                <p class="code-indent">
+                  <span class="code-blue">design</span>:
+                  <span class="code-green">'modern'</span>,
+                </p>
+                <p class="code-indent">
+                  <span class="code-blue">responsive</span>:
+                  <span class="code-orange">true</span>,
+                </p>
+                <p class="code-indent">
+                  <span class="code-blue">fast</span>:
+                  <span class="code-orange">true</span>,
+                </p>
+                <p class="code-indent">
+                  <span class="code-blue">result</span>:
+                  <span class="code-green">'success'</span>
+                </p>
+                <p>};</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services section" id="services">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-heading__label">01 / Услуги</p>
+              <h2 class="section-heading__title">Что я могу сделать</h2>
+            </div>
+
+            <p class="section-heading__description">
+              Разрабатываю сайты с нуля или улучшаю существующие проекты.
+            </p>
+          </div>
+
+          <div class="services__grid">
+            <article class="service-card">
+              <div class="service-card__icon">
+                <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+              </div>
+              <h3 class="service-card__title">Лендинги</h3>
+              <p class="service-card__description">
+                Продающие одностраничные сайты для услуг, продуктов, рекламы и
+                запуска новых предложений.
+              </p>
+              <span class="service-card__number">01</span>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__icon">
+                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+              </div>
+              <h3 class="service-card__title">Многостраничные сайты</h3>
+              <p class="service-card__description">
+                Структурированные сайты для компаний, экспертов, агентств и
+                проектов с большим количеством контента.
+              </p>
+              <span class="service-card__number">02</span>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__icon">
+                <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              </div>
+              <h3 class="service-card__title">Интернет-магазины и каталоги</h3>
+              <p class="service-card__description">
+                Удобные каталоги и магазины с понятной навигацией, карточками
+                товаров и адаптивным интерфейсом.
+              </p>
+              <span class="service-card__number">03</span>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__icon">
+                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+              </div>
+              <h3 class="service-card__title">Доработка и оптимизация</h3>
+              <p class="service-card__description">
+                Исправление ошибок, улучшение скорости, адаптивности, UX и
+                визуальной части готовых сайтов.
+              </p>
+              <span class="service-card__number">04</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="portfolio section" id="portfolio">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-heading__label">02 / Портфолио</p>
+              <h2 class="section-heading__title">Избранные проекты</h2>
+            </div>
+
+            <p class="section-heading__description">
+              Несколько примеров интерфейсов и решений для разных задач бизнеса.
+            </p>
+          </div>
+
+          <div class="portfolio__grid">
+            <article class="project-card">
+              <div class="project-card__slider swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/1e293b/38bdf8?text=Project+01+%2F+01"
+                      alt="Скриншот проекта FinFlow"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/172033/38bdf8?text=Project+01+%2F+02"
+                      alt="Скриншот проекта FinFlow"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/0f172a/38bdf8?text=Project+01+%2F+03"
+                      alt="Скриншот проекта FinFlow"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+              </div>
+
+              <div class="project-card__content">
+                <div class="project-card__meta">
+                  <span class="project-card__category">Landing Page</span>
+                  <span class="project-card__year">2026</span>
+                </div>
+
+                <h3 class="project-card__title">FinFlow</h3>
+
+                <p class="project-card__description">
+                  Лендинг финансового сервиса с акцентом на доверие, понятную
+                  подачу продукта и конверсию посетителей.
+                </p>
+
+                <a
+                  class="project-card__link"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Посмотреть сайт
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card__slider swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/1e293b/6366f1?text=Project+02+%2F+01"
+                      alt="Скриншот проекта Nord Architecture"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/172033/6366f1?text=Project+02+%2F+02"
+                      alt="Скриншот проекта Nord Architecture"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/0f172a/6366f1?text=Project+02+%2F+03"
+                      alt="Скриншот проекта Nord Architecture"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+              </div>
+
+              <div class="project-card__content">
+                <div class="project-card__meta">
+                  <span class="project-card__category">Corporate</span>
+                  <span class="project-card__year">2026</span>
+                </div>
+
+                <h3 class="project-card__title">Nord Architecture</h3>
+
+                <p class="project-card__description">
+                  Корпоративный сайт архитектурного бюро с акцентом на
+                  визуальную презентацию проектов и услуг.
+                </p>
+
+                <a
+                  class="project-card__link"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Посмотреть сайт
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card__slider swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/1e293b/38bdf8?text=Project+03+%2F+01"
+                      alt="Скриншот проекта Urban Store"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/172033/38bdf8?text=Project+03+%2F+02"
+                      alt="Скриншот проекта Urban Store"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://placehold.co/1200x750/0f172a/38bdf8?text=Project+03+%2F+03"
+                      alt="Скриншот проекта Urban Store"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+              </div>
+
+              <div class="project-card__content">
+                <div class="project-card__meta">
+                  <span class="project-card__category">E-commerce</span>
+                  <span class="project-card__year">2026</span>
+                </div>
+
+                <h3 class="project-card__title">Urban Store</h3>
+
+                <p class="project-card__description">
+                  Каталог товаров с удобной структурой, акцентом на категории и
+                  быстрым поиском нужного продукта.
+                </p>
+
+                <a
+                  class="project-card__link"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Посмотреть сайт
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about section" id="about">
+        <div class="container about__container">
+          <div class="about__content">
+            <p class="section-heading__label">03 / Обо мне</p>
+
+            <h2 class="about__title">
+              Код должен решать бизнес-задачу, а не просто красиво выглядеть.
+            </h2>
+
+            <p class="about__text">
+              Я создаю сайты с фокусом на результат: понятную структуру, удобный
+              пользовательский путь, высокую скорость загрузки и корректное
+              отображение на любых устройствах.
+            </p>
+
+            <p class="about__text">
+              Перед разработкой разбираюсь в задаче проекта, целевой аудитории и
+              ключевых действиях пользователя. После этого превращаю идею в
+              понятный и масштабируемый продукт.
+            </p>
+
+            <a class="button button--secondary" href="#contacts">
+              Обсудить задачу
+            </a>
+          </div>
+
+          <div class="skills">
+            <div class="skills__header">
+              <span class="skills__label">Стек технологий</span>
+              <span class="skills__line"></span>
+            </div>
+
+            <div class="skills__grid">
+              <div class="skill">
+                <i class="fa-brands fa-html5" aria-hidden="true"></i>
+                <span class="skill__name">HTML5</span>
+              </div>
+
+              <div class="skill">
+                <i class="fa-brands fa-css3-alt" aria-hidden="true"></i>
+                <span class="skill__name">CSS3</span>
+              </div>
+
+              <div class="skill">
+                <i class="fa-brands fa-js" aria-hidden="true"></i>
+                <span class="skill__name">JavaScript</span>
+              </div>
+
+              <div class="skill">
+                <i class="fa-brands fa-php" aria-hidden="true"></i>
+                <span class="skill__name">PHP</span>
+              </div>
+
+              <div class="skill">
+                <i class="fa-brands fa-wordpress" aria-hidden="true"></i>
+                <span class="skill__name">WordPress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contacts section" id="contacts">
+        <div class="container contacts__container">
+          <div class="contacts__intro">
+            <p class="section-heading__label">04 / Контакты</p>
+
+            <h2 class="contacts__title">
+              Есть идея?
+              <span class="text-accent">Давайте обсудим.</span>
+            </h2>
+
+            <p class="contacts__description">
+              Расскажите о проекте в нескольких словах. Я свяжусь с вами и
+              предложу оптимальный вариант реализации.
+            </p>
+
+            <div class="contacts__links">
+              <a
+                class="contact-link"
+                href="https://t.me/your_username"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="contact-link__icon">
+                  <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+                </span>
+                <span class="contact-link__content">
+                  <span class="contact-link__label">Telegram</span>
+                  <span class="contact-link__value">@your_username</span>
+                </span>
+              </a>
+
+              <a
+                class="contact-link"
+                href="https://wa.me/79999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="contact-link__icon">
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                </span>
+                <span class="contact-link__content">
+                  <span class="contact-link__label">WhatsApp</span>
+                  <span class="contact-link__value">+7 999 999-99-99</span>
+                </span>
+              </a>
+
+              <a class="contact-link" href="mailto:hello@example.com">
+                <span class="contact-link__icon">
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                </span>
+                <span class="contact-link__content">
+                  <span class="contact-link__label">Email</span>
+                  <span class="contact-link__value">hello@example.com</span>
+                </span>
+              </a>
+
+              <a
+                class="contact-link"
+                href="https://github.com/your_username"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="contact-link__icon">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                </span>
+                <span class="contact-link__content">
+                  <span class="contact-link__label">GitHub</span>
+                  <span class="contact-link__value"
+                    >github.com/your_username</span
+                  >
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-field">
+              <label class="form-field__label" for="name">Имя</label>
+              <input
+                class="form-field__input"
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Как к вам обращаться?"
+                autocomplete="name"
+                required
+              />
+              <span class="form-field__error" data-error-for="name"></span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="contact"
+                >Telegram / Телефон</label
+              >
+              <input
+                class="form-field__input"
+                id="contact"
+                name="contact"
+                type="text"
+                placeholder="@username или +7 999 999-99-99"
+                autocomplete="tel"
+                required
+              />
+              <span class="form-field__error" data-error-for="contact"></span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="message">Сообщение</label>
+              <textarea
+                class="form-field__input form-field__input--textarea"
+                id="message"
+                name="message"
+                placeholder="Расскажите о проекте..."
+                rows="6"
+                required
+              ></textarea>
+              <span class="form-field__error" data-error-for="message"></span>
+            </div>
+
+            <button
+              class="button button--primary contact-form__submit"
+              type="submit"
+            >
+              Отправить сообщение
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+
+            <p class="contact-form__success" id="form-success" role="status">
+              Сообщение заполнено корректно. Форма готова к подключению к вашему
+              backend.
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__container">
+        <p class="footer__copyright">
+          © <span id="current-year"></span> dev. Все права защищены.
+        </p>
+
+        <nav class="footer__nav" aria-label="Навигация в подвале">
+          <a class="footer__link" href="#services">Услуги</a>
+          <a class="footer__link" href="#portfolio">Портфолио</a>
+          <a class="footer__link" href="#about">Обо мне</a>
+          <a class="footer__link" href="#contacts">Контакты</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

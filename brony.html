@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Загородный дом — прототип бронирования</title>
+    <style>
+      :root {
+        --bg: #f4f6f8;
+        --card: #fff;
+        --text: #17212b;
+        --muted: #6b7785;
+        --line: #dfe5ea;
+        --accent: #2367d1;
+        --ok: #16834a;
+        --warn: #b76b00;
+        --danger: #c63838;
+        --shadow: 0 10px 30px rgba(23, 33, 43, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          15px/1.45 Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .top {
+        background: #14202b;
+        color: #fff;
+        padding: 18px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .top h1 {
+        font-size: 18px;
+        margin: 0;
+      }
+      .top small {
+        color: #b8c2cc;
+      }
+      .tabs button {
+        border: 0;
+        background: transparent;
+        color: #cbd5df;
+        padding: 9px 12px;
+        border-radius: 8px;
+      }
+      .tabs button.active {
+        background: #2a3b4b;
+        color: #fff;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 28px auto;
+        padding: 0 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+      .hero {
+        height: 250px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #b9d0bd, #708d78 45%, #2e4b3a);
+        display: flex;
+        align-items: end;
+        padding: 22px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      .hero h2 {
+        font-size: 30px;
+        margin: 0;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      .chip {
+        background: #eef3f7;
+        border-radius: 999px;
+        padding: 6px 10px;
+        color: #465361;
+      }
+      .pricebox {
+        background: #f6f9fc;
+        border: 1px solid var(--line);
+        padding: 15px;
+        border-radius: 12px;
+        margin: 14px 0;
+      }
+      .price {
+        font-size: 28px;
+        font-weight: 750;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      h2,
+      h3 {
+        margin-top: 0;
+      }
+      .calendar-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .calendar-head button {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 6px 10px;
+      }
+      .week,
+      .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+      }
+      .week div {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 5px;
+      }
+      .day {
+        min-height: 54px;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 9px;
+        padding: 7px;
+        position: relative;
+        text-align: left;
+      }
+      .day:hover:not(.disabled):not(.blocked) {
+        border-color: var(--accent);
+      }
+      .day.disabled {
+        color: #c3c9cf;
+        background: #f5f6f7;
+      }
+      .day.blocked {
+        background: #ffe9e9;
+        color: #a72828;
+        border-color: #f2bcbc;
+      }
+      .day.hold {
+        background: #fff3d9;
+        color: #8b5b00;
+        border-color: #edca79;
+      }
+      .day.confirmed {
+        background: #e5f5ec;
+        color: #12683d;
+        border-color: #a9d7bc;
+      }
+      .day.selected {
+        background: #e8f0ff;
+        border-color: #2367d1;
+        color: #1554ae;
+      }
+      .day.inrange {
+        background: #f0f5ff;
+      }
+      .day .tag {
+        position: absolute;
+        right: 5px;
+        bottom: 4px;
+        font-size: 9px;
+      }
+      .legend {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+        font-size: 12px;
+      }
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        margin-right: 4px;
+        vertical-align: -1px;
+      }
+      .form {
+        display: grid;
+        gap: 11px;
+      }
+      .form label {
+        font-weight: 600;
+      }
+      .form input,
+      .form textarea,
+      .form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #fff;
+      }
+      .form textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .btn {
+        border: 0;
+        border-radius: 9px;
+        padding: 11px 15px;
+        font-weight: 700;
+      }
+      .primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .secondary {
+        background: #eef2f5;
+        color: #253342;
+      }
+      .danger {
+        background: #ffe7e7;
+        color: #a32828;
+      }
+      .notice {
+        padding: 11px 13px;
+        border-radius: 9px;
+        background: #eef5ff;
+        border: 1px solid #c9dcfa;
+        margin-bottom: 12px;
+      }
+      .timer {
+        font-weight: 800;
+        color: var(--warn);
+      }
+      .hidden {
+        display: none !important;
+      }
+      .admin .stat {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        padding: 10px 0;
+      }
+      .booking {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px;
+        margin: 10px 0;
+      }
+      .booking-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .badge {
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .b-hold {
+        background: #fff0cf;
+        color: #8b5b00;
+      }
+      .b-confirmed {
+        background: #ddf4e7;
+        color: #12683d;
+      }
+      .b-expired {
+        background: #eee;
+        color: #68727b;
+      }
+      .b-cancelled {
+        background: #ffe3e3;
+        color: #9e2828;
+      }
+      .b-paid {
+        background: #e3f0ff;
+        color: #195da7;
+      }
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      .closed-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .closed {
+        background: #ffe9e9;
+        color: #9e2828;
+        padding: 6px 9px;
+        border-radius: 8px;
+      }
+      @media (max-width: 850px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .top {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .day {
+          min-height: 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <h1>🏡 Загородный дом · Prototype</h1>
+        <small>Локальный HTML-прототип без сервера</small>
+      </div>
+      <nav class="tabs">
+        <button id="tabClient" class="active" onclick="showTab('client')">
+          Бронирование</button
+        ><button id="tabAdmin" onclick="showTab('admin')">
+          Тестовая админка
+        </button>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <section id="client">
+        <div class="grid">
+          <div class="card">
+            <div class="hero">
+              <div>
+                <h2>Дом у леса</h2>
+                <div>До 8 гостей · 3 спальни · баня</div>
+              </div>
+            </div>
+            <h3>О доме</h3>
+            <p>
+              Уютный загородный дом для отдыха на природе. В прототипе
+              фотографии заменены визуальным блоком.
+            </p>
+            <div class="chips">
+              <span class="chip">Заезд после 15:00</span
+              ><span class="chip">Выезд до 12:00</span
+              ><span class="chip">Без вечеринок</span>
+            </div>
+            <h3>Правила</h3>
+            <ul>
+              <li>Максимум 8 гостей.</li>
+              <li>Минимум 2 ночи.</li>
+              <li>Курение в доме запрещено.</li>
+            </ul>
+            <div class="pricebox">
+              <div class="muted">Расчёт по выбранному диапазону</div>
+              <div class="price" id="totalPrice">—</div>
+              <div id="priceDetails" class="muted">Выберите даты</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Выберите даты</h3>
+            <div id="notice"></div>
+            <div class="calendar-head">
+              <button onclick="prevMonth()">←</button
+              ><strong id="monthTitle"></strong
+              ><button onclick="nextMonth()">→</button>
+            </div>
+            <div class="week">
+              <div>Пн</div>
+              <div>Вт</div>
+              <div>Ср</div>
+              <div>Чт</div>
+              <div>Пт</div>
+              <div>Сб</div>
+              <div>Вс</div>
+            </div>
+            <div id="days" class="days"></div>
+            <div class="legend">
+              <span
+                ><i class="dot" style="background: #e8f0ff"></i>выбрано</span
+              >
+              <span><i class="dot" style="background: #fff3d9"></i>hold</span>
+              <span
+                ><i class="dot" style="background: #e5f5ec"></i
+                >подтверждено</span
+              >
+              <span
+                ><i class="dot" style="background: #ffe9e9"></i>закрыто</span
+              >
+            </div>
+            <hr
+              style="
+                border: 0;
+                border-top: 1px solid var(--line);
+                margin: 18px 0;
+              "
+            />
+            <form id="bookingForm" class="form">
+              <div class="two">
+                <div><label>Имя *</label><input id="name" required /></div>
+                <div><label>Телефон *</label><input id="phone" required /></div>
+              </div>
+              <div>
+                <label>Email *</label><input id="email" type="email" required />
+              </div>
+              <div class="two">
+                <div>
+                  <label>Гостей *</label
+                  ><input
+                    id="guests"
+                    type="number"
+                    min="1"
+                    max="8"
+                    value="2"
+                    required
+                  />
+                </div>
+                <div><label>Комментарий</label><input id="comment" /></div>
+              </div>
+              <button class="btn primary" type="submit">
+                Отправить заявку
+              </button>
+              <div class="muted">
+                Регистрация не требуется. После отправки даты резервируются на 2
+                часа.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin" class="admin hidden">
+        <div class="grid">
+          <div class="card">
+            <h2>Тестовая админка</h2>
+            <div class="notice">
+              Здесь имитируется работа администратора: уведомления, оплата,
+              подтверждение, отмена и истечение hold.
+            </div>
+            <div class="stat">
+              <span>Активных hold</span><strong id="holdCount">0</strong>
+            </div>
+            <div class="stat">
+              <span>Подтверждённых</span><strong id="confirmedCount">0</strong>
+            </div>
+            <div class="stat">
+              <span>Закрытых вручную</span><strong id="closedCount">0</strong>
+            </div>
+            <h3 style="margin-top: 22px">Заявки</h3>
+            <div id="bookingList"></div>
+          </div>
+          <div class="card">
+            <h3>Управление датами</h3>
+            <p class="muted">
+              Выберите даты в календаре и используйте кнопку ниже для ручного
+              закрытия. Закрытые даты нельзя выбрать клиенту.
+            </p>
+            <button class="btn secondary" onclick="adminCalendarSelect()">
+              Открыть календарь для блокировки
+            </button>
+            <div id="adminCloseMode" class="hidden">
+              <p><strong>Режим ручной блокировки:</strong> кликайте даты.</p>
+              <button class="btn danger" onclick="exitCloseMode()">
+                Готово
+              </button>
+            </div>
+            <h3 style="margin-top: 22px">Закрытые даты</h3>
+            <div id="closedList" class="closed-list"></div>
+            <hr
+              style="
+                border: 0;
+                border-top: 1px solid var(--line);
+                margin: 20px 0;
+              "
+            />
+            <h3>Правила цены (демо)</h3>
+            <div class="stat">
+              <span>База</span><strong>15 000 ₽ / ночь</strong>
+            </div>
+            <div class="stat">
+              <span>Пт–Сб</span><strong>18 000 ₽ / ночь</strong>
+            </div>
+            <div class="stat">
+              <span>Июль–август</span><strong>20 000 ₽ / ночь</strong>
+            </div>
+            <div class="stat">
+              <span>31 декабря</span><strong>35 000 ₽ / ночь</strong>
+            </div>
+            <div class="stat"><span>Минимум</span><strong>2 ночи</strong></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const KEY = 'country_house_proto_v1'
+      const HOLD_MS = 2 * 60 * 60 * 1000
+      const BASE = 15000
+      let state = JSON.parse(localStorage.getItem(KEY) || 'null') || {
+        bookings: [],
+        closed: [],
+      }
+      let view = new Date()
+      view.setDate(1)
+      let start = null,
+        end = null,
+        closeMode = false
+
+      function save() {
+        localStorage.setItem(KEY, JSON.stringify(state))
+      }
+      function iso(d) {
+        return d.toISOString().slice(0, 10)
+      }
+      function parse(s) {
+        return new Date(s + 'T12:00:00')
+      }
+      function fmt(s) {
+        return parse(s).toLocaleDateString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })
+      }
+      function nights(a, b) {
+        return Math.round((parse(b) - parse(a)) / 86400000)
+      }
+      function activeBookings() {
+        return state.bookings.filter(
+          (b) =>
+            (b.status === 'hold' && b.expiresAt > Date.now()) ||
+            b.status === 'confirmed',
+        )
+      }
+      function statusFor(date) {
+        if (state.closed.includes(date)) return 'blocked'
+        for (const b of state.bookings) {
+          if (
+            ((b.status === 'hold' && b.expiresAt > Date.now()) ||
+              b.status === 'confirmed') &&
+            date >= b.start &&
+            date < b.end
+          )
+            return b.status
+        }
+        return ''
+      }
+      function priceNight(date) {
+        const d = parse(date),
+          m = d.getMonth() + 1,
+          day = d.getDay()
+        if (date.endsWith('-12-31')) return 35000
+        if (m === 7 || m === 8) return 20000
+        if (day === 5 || day === 6) return 18000
+        return BASE
+      }
+      function rangePrice(a, b) {
+        let total = 0
+        for (let i = 0; i < nights(a, b); i++) {
+          let d = new Date(parse(a))
+          d.setDate(d.getDate() + i)
+          total += priceNight(iso(d))
+        }
+        return total
+      }
+      function renderCalendar() {
+        document.getElementById('monthTitle').textContent =
+          view.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })
+        const first = new Date(view),
+          last = new Date(view.getFullYear(), view.getMonth() + 1, 0)
+        let offset = (first.getDay() + 6) % 7,
+          html = ''
+        for (let i = 0; i < offset; i++) html += '<div></div>'
+        for (let day = 1; day <= last.getDate(); day++) {
+          const d = new Date(view.getFullYear(), view.getMonth(), day),
+            s = iso(d),
+            st = statusFor(s)
+          let cls = 'day ' + (st || '')
+          if (start === s) cls += ' selected'
+          else if (start && end && s > start && s < end) cls += ' inrange'
+          html += `<button class="${cls}" onclick="pick('${s}')">${day}${st ? `<span class="tag">${st === 'hold' ? 'hold' : st === 'confirmed' ? 'занято' : 'закрыто'}</span>` : ''}</button>`
+        }
+        document.getElementById('days').innerHTML = html
+        updatePrice()
+        updateNotice()
+      }
+      function pick(s) {
+        if (closeMode) {
+          toggleClosed(s)
+          return
+        }
+        if (statusFor(s)) return
+        if (!start || end) {
+          start = s
+          end = null
+        } else if (s <= start) {
+          start = s
+          end = null
+        } else {
+          let ok = true,
+            d = parse(start)
+          while (iso(d) < s) {
+            d.setDate(d.getDate() + 1)
+            if (statusFor(iso(d))) {
+              ok = false
+              break
+            }
+          }
+          if (statusFor(s)) ok = false
+          if (!ok) {
+            alert('В выбранном диапазоне есть недоступная дата.')
+            return
+          }
+          end = s
+        }
+        renderCalendar()
+      }
+      function updatePrice() {
+        const p = document.getElementById('totalPrice'),
+          d = document.getElementById('priceDetails')
+        if (start && end) {
+          let n = nights(start, end)
+          p.textContent = rangePrice(start, end).toLocaleString('ru-RU') + ' ₽'
+          d.textContent =
+            `${fmt(start)} → ${fmt(end)} · ${n} ${plural(n, 'ночь', 'ночи', 'ночей')}` +
+            (n < 2 ? ' · минимум 2 ночи' : '')
+        } else {
+          p.textContent = '—'
+          d.textContent = start
+            ? `Заезд: ${fmt(start)} · выберите дату выезда`
+            : 'Выберите даты'
+        }
+      }
+      function plural(n, a, b, c) {
+        return n % 10 === 1 && n % 100 !== 11
+          ? a
+          : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
+            ? b
+            : c
+      }
+      function updateNotice() {
+        const el = document.getElementById('notice')
+        const b = state.bookings.find(
+          (x) => x.status === 'hold' && x.expiresAt > Date.now(),
+        )
+        el.innerHTML = b
+          ? `<div class="notice">Есть активная тестовая заявка: <span class="timer" id="timer"></span>. После истечения hold даты освободятся.</div>`
+          : ''
+        if (b) tick()
+      }
+      function tick() {
+        const b = state.bookings.find(
+          (x) => x.status === 'hold' && x.expiresAt > Date.now(),
+        )
+        if (!b) return
+        const sec = Math.max(0, Math.floor((b.expiresAt - Date.now()) / 1000)),
+          t = document.getElementById('timer')
+        if (t)
+          t.textContent = `${String(Math.floor(sec / 3600)).padStart(2, '0')}:${String(Math.floor((sec % 3600) / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`
+        setTimeout(() => {
+          expireHolds()
+          renderAll()
+        }, 1000)
+      }
+      function expireHolds() {
+        let changed = false
+        state.bookings.forEach((b) => {
+          if (b.status === 'hold' && b.expiresAt <= Date.now()) {
+            b.status = 'expired'
+            changed = true
+          }
+        })
+        if (changed) save()
+      }
+      document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        e.preventDefault()
+        expireHolds()
+        if (!start || !end) return alert('Сначала выберите диапазон дат.')
+        const n = nights(start, end)
+        if (n < 2) return alert('Минимальное бронирование — 2 ночи.')
+        for (let d = parse(start); iso(d) < end; d.setDate(d.getDate() + 1))
+          if (statusFor(iso(d))) return alert('Даты уже заняты или закрыты.')
+        const b = {
+          id: 'B' + Date.now().toString().slice(-7),
+          start,
+          end,
+          name: val('name'),
+          phone: val('phone'),
+          email: val('email'),
+          guests: +val('guests'),
+          comment: val('comment'),
+          total: rangePrice(start, end),
+          status: 'hold',
+          createdAt: Date.now(),
+          expiresAt: Date.now() + HOLD_MS,
+          paid: false,
+        }
+        state.bookings.push(b)
+        save()
+        alert('Заявка создана. Даты удерживаются 2 часа.')
+        e.target.reset()
+        start = end = null
+        renderAll()
+        showTab('admin')
+      })
+      function val(id) {
+        return document.getElementById(id).value
+      }
+      function showTab(t) {
+        document
+          .getElementById('client')
+          .classList.toggle('hidden', t !== 'client')
+        document
+          .getElementById('admin')
+          .classList.toggle('hidden', t !== 'admin')
+        document
+          .getElementById('tabClient')
+          .classList.toggle('active', t === 'client')
+        document
+          .getElementById('tabAdmin')
+          .classList.toggle('active', t === 'admin')
+        renderAll()
+      }
+      function prevMonth() {
+        view.setMonth(view.getMonth() - 1)
+        renderCalendar()
+      }
+      function nextMonth() {
+        view.setMonth(view.getMonth() + 1)
+        renderCalendar()
+      }
+      function renderAdmin() {
+        expireHolds()
+        const list = document.getElementById('bookingList')
+        list.innerHTML = state.bookings.length
+          ? state.bookings
+              .slice()
+              .reverse()
+              .map(
+                (b) => `
+ <div class="booking">
+  <div class="booking-head"><strong>${b.name}</strong><span class="badge ${b.status === 'hold' ? 'b-hold' : b.status === 'confirmed' ? 'b-confirmed' : b.status === 'expired' ? 'b-expired' : 'b-cancelled'}">${b.status}</span></div>
+  <div>${fmt(b.start)} → ${fmt(b.end)} · ${nights(b.start, b.end)} ноч. · ${b.total.toLocaleString('ru-RU')} ₽</div>
+  <div class="muted">${b.phone} · ${b.email} · ${b.guests} гостей</div>
+  ${b.comment ? `<div style="margin-top:6px">Комментарий: ${b.comment}</div>` : ''}
+  ${b.status === 'hold' ? `<div class="toolbar"><button class="btn secondary" onclick="markPaid('${b.id}')">Оплата получена</button><button class="btn primary" onclick="confirmBooking('${b.id}')">Подтвердить бронь</button><button class="btn danger" onclick="cancelBooking('${b.id}')">Отменить</button></div>` : ''}
+  ${b.status === 'confirmed' ? `<div class="toolbar"><button class="btn danger" onclick="cancelBooking('${b.id}')">Отменить бронь</button></div>` : ''}
+  ${b.paid ? '<span class="badge b-paid">оплачено</span>' : ''}
+ </div>`,
+              )
+              .join('')
+          : '<p class="muted">Заявок пока нет.</p>'
+        document.getElementById('holdCount').textContent =
+          state.bookings.filter(
+            (b) => b.status === 'hold' && b.expiresAt > Date.now(),
+          ).length
+        document.getElementById('confirmedCount').textContent =
+          state.bookings.filter((b) => b.status === 'confirmed').length
+        document.getElementById('closedCount').textContent = state.closed.length
+        document.getElementById('closedList').innerHTML =
+          state.closed
+            .sort()
+            .map(
+              (x) =>
+                `<span class="closed">${fmt(x)} <button onclick="toggleClosed('${x}')" style="border:0;background:transparent;color:inherit">×</button></span>`,
+            )
+            .join('') || '<span class="muted">нет</span>'
+      }
+      function markPaid(id) {
+        const b = state.bookings.find((x) => x.id === id)
+        if (b) {
+          b.paid = true
+          save()
+          renderAll()
+        }
+      }
+      function confirmBooking(id) {
+        const b = state.bookings.find((x) => x.id === id)
+        if (b) {
+          b.status = 'confirmed'
+          b.expiresAt = null
+          save()
+          renderAll()
+          alert('Бронь подтверждена: даты окончательно заняты.')
+        }
+      }
+      function cancelBooking(id) {
+        const b = state.bookings.find((x) => x.id === id)
+        if (b) {
+          b.status = 'cancelled'
+          save()
+          renderAll()
+        }
+      }
+      function adminCalendarSelect() {
+        closeMode = true
+        document.getElementById('adminCloseMode').classList.remove('hidden')
+        document.getElementById('days').scrollIntoView({ behavior: 'smooth' })
+        renderCalendar()
+      }
+      function exitCloseMode() {
+        closeMode = false
+        document.getElementById('adminCloseMode').classList.add('hidden')
+        renderCalendar()
+      }
+      function toggleClosed(s) {
+        if (state.closed.includes(s))
+          state.closed = state.closed.filter((x) => x !== s)
+        else {
+          if (statusFor(s) === 'confirmed' || statusFor(s) === 'hold')
+            return alert('Нельзя вручную закрыть дату с активной бронью.')
+          state.closed.push(s)
+        }
+        save()
+        renderAll()
+      }
+      function renderAll() {
+        renderCalendar()
+        renderAdmin()
+      }
+      renderAll()
+      setInterval(() => {
+        expireHolds()
+        renderAll()
+      }, 5000)
+    </script>
+  </body>
+</html>

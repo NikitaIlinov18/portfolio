@@ -105,18 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
     new Swiper(slider, {
       slidesPerView: 1,
       spaceBetween: 0,
-      loop: false,
+      loop: true,
       speed: 500,
       grabCursor: true,
 
       pagination: {
         el: slider.querySelector('.swiper-pagination'),
         clickable: true,
-      },
-
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
       },
     })
   })

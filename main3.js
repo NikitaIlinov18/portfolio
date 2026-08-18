@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new Swiper(slider, {
       slidesPerView: 1,
       spaceBetween: 0,
-      loop: true,
+      loop: false,
       speed: 500,
       grabCursor: true,
 
